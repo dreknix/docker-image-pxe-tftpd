@@ -1,0 +1,38 @@
+#!ipxe
+
+#config
+
+echo
+echo iPXE embedded: tftp://${next-server}/${filename}
+echo
+
+echo
+echo iPXE embedded: starting DHCP
+echo
+# needed since embed script: https://ipxe.org/embed
+dhcp || echo DHCP failed
+sleep 2
+
+echo
+echo iPXE embedded: iPXE Settings
+echo
+show uuid ||
+echo
+show mac ||
+show ip ||
+show netmask ||
+show gateway ||
+show dns ||
+show domain ||
+echo
+show platform ||
+sleep 2
+
+:retry
+echo
+echo iPXE embedded: Chain loading http://${next-server}/ipxe/boot.ipxe
+echo
+sleep 2
+chain --replace --autofree http://${next-server}/ipxe/boot.ipxe || echo Chain loading failed
+shell
+goto retry

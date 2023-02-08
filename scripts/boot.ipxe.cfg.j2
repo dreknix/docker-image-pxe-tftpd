@@ -1,0 +1,9 @@
+#!ipxe
+
+set base-url http://{{ pxe_hostname }}/
+
+set boot-url ${base-url}/boot/
+set ipxe-url ${base-url}/ipxe/
+set iso-url  ${base-url}/iso/
+
+set menu-url ${base-url}/ipxe/menu.ipxe
