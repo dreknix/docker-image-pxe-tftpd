@@ -1,0 +1,41 @@
+---
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  IMAGE_NAME: "ipxe-tftpd"
+  CONTAINER_NAME: "{{ .IMAGE_NAME }}"
+
+tasks:
+
+  build:
+    desc: Build Docker image
+    cmds:
+      - docker build -t {{ .IMAGE_NAME }} -f Dockerfile .
+
+  start:
+    desc: Start Docker container
+    cmds:
+      - docker run --rm -d
+                   --network host
+                   -v ipxe:/ipxe/
+                   --name {{ .CONTAINER_NAME }}
+                   {{ .IMAGE_NAME }}
+
+  stop:
+    desc: Stop Docker container
+    cmds:
+      - docker stop {{ .CONTAINER_NAME }}
+
+  exec:
+    desc: Execute shell inside container
+    cmds:
+      - docker exec -it {{ .CONTAINER_NAME }} sh
+
+  logs:
+    desc: Show container logs
+    cmds:
+      - docker logs {{ .CONTAINER_NAME }}
+
+...

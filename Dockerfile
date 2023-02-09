@@ -24,7 +24,7 @@ RUN sed -i '/CONSOLE_CMD/s/\/\/#define/#define/'         config/general.h
 RUN sed -i '/CONSOLE_FRAMEBUFFER/s/\/\/#define/#define/' config/console.h
 RUN sed -i '/KEYBOARD_MAP/s/us/de/'                      config/console.h
 
-COPY scripts/embedded.ipxe .
+COPY embedded.ipxe .
 
 RUN make bin-x86_64-pcbios/ipxe.pxe EMBED=embedded.ipxe
 RUN make bin-x86_64-efi/ipxe.efi    EMBED=embedded.ipxe
@@ -36,10 +36,12 @@ FROM alpine:3.17.1
 # install tftp
 RUN apk add --no-cache tftp-hpa
 
+WORKDIR /
+
 COPY --from=builder /build/ipxe/src/bin-x86_64-pcbios/ipxe.pxe /ipxe-base/
 COPY --from=builder /build/ipxe/src/bin-x86_64-efi/ipxe.efi    /ipxe-base/
 
-COPY scripts/entrypoint.sh      /
+COPY entrypoint.sh /
 
 EXPOSE 69/udp
 
