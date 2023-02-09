@@ -1,21 +1,13 @@
 #!/bin/sh
 
+cp -u /ipxe-base/ipxe.efi           /ipxe/
+cp -u /ipxe-base/ipxe.pxe           /ipxe/
+
 busybox syslogd -n -O /dev/stdout &
-
-cp /ipxe-base/ipxe.efi           /ipxe/
-cp /ipxe-base/ipxe.pxe           /ipxe/
-
-if [ ! -d /ipxe/boot ]
-then
-  mkdir /ipxe/boot
-fi
-
-cp /ipxe-base/boot.ipxe         /ipxe/boot/
-cp /ipxe-base/boot.ipxe.cfg.j2  /ipxe/boot/
 
 /usr/sbin/in.tftpd \
   --foreground  \
-  --address :6969 \
+  --address :69 \
   --secure \
   --user ftp \
   --blocksize 1468 \

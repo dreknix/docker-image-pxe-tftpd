@@ -17,12 +17,12 @@ RUN patch -p 1 < 612.patch
 
 WORKDIR /build/ipxe/src/
 
-RUN sed -i '/DOWNLOAD_PROTO_HTTPS/s/#undef  /#define /'    config/general.h
-RUN sed -i '/PING_CMD/s/\/\/#define /#define /'            config/general.h
-RUN sed -i '/CONSOLE_CMD/s/\/\/#define /#define /'         config/general.h
+RUN sed -i '/DOWNLOAD_PROTO_HTTPS/s/#undef/#define/'     config/general.h
+RUN sed -i '/PING_CMD/s/\/\/#define/#define/'            config/general.h
+RUN sed -i '/CONSOLE_CMD/s/\/\/#define/#define/'         config/general.h
 
-RUN sed -i '/CONSOLE_FRAMEBUFFER/s/\/\/#define /#define /' config/console.h
-RUN sed -i '/KEYBOARD_MAP/s/us/de/'                        config/console.h
+RUN sed -i '/CONSOLE_FRAMEBUFFER/s/\/\/#define/#define/' config/console.h
+RUN sed -i '/KEYBOARD_MAP/s/us/de/'                      config/console.h
 
 COPY scripts/embedded.ipxe .
 
@@ -38,9 +38,6 @@ RUN apk add --no-cache tftp-hpa
 
 COPY --from=builder /build/ipxe/src/bin-x86_64-pcbios/ipxe.pxe /ipxe-base/
 COPY --from=builder /build/ipxe/src/bin-x86_64-efi/ipxe.efi    /ipxe-base/
-
-COPY scripts/boot.ipxe          /ipxe-base/
-COPY scripts/boot.ipxe.cfg.j2   /ipxe-base/
 
 COPY scripts/entrypoint.sh      /
 

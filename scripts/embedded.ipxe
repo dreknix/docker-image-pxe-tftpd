@@ -30,9 +30,9 @@ sleep 2
 
 :retry
 echo
-echo iPXE embedded: Chain loading http://${next-server}/ipxe/boot.ipxe
+echo iPXE embedded: Chain loading http://${next-server}:8080/boot/boot.ipxe
 echo
 sleep 2
-chain --replace --autofree http://${next-server}/ipxe/boot.ipxe || echo Chain loading failed
+chain --replace --autofree http://${next-server}:8080/boot/boot.ipxe || echo Chain loading failed
 shell
 goto retry
