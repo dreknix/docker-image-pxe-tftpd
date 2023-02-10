@@ -5,7 +5,15 @@ FROM alpine:3.17.1 AS builder
 
 ARG HTTP_PORT=8069
 
-RUN apk add --no-cache make gcc musl-dev xz-dev perl patch git
+# check: https://pkgs.alpinelinux.org/packages?branch=v3.17
+RUN apk add --no-cache \
+            make=4.3-r1 \
+            gcc=12.2.1_git20220924-r4 \
+            musl-dev=1.2.3-r4 \
+            xz-dev=5.2.9-r0 \
+            perl=5.36.0-r0 \
+            patch=2.7.6-r8 \
+            git=2.38.3-r1
 
 WORKDIR /build/
 
@@ -19,12 +27,11 @@ RUN patch -p 1 < 612.patch
 
 WORKDIR /build/ipxe/src/
 
-RUN sed -i '/DOWNLOAD_PROTO_HTTPS/s/#undef/#define/'     config/general.h
-RUN sed -i '/PING_CMD/s/\/\/#define/#define/'            config/general.h
-RUN sed -i '/CONSOLE_CMD/s/\/\/#define/#define/'         config/general.h
-
-RUN sed -i '/CONSOLE_FRAMEBUFFER/s/\/\/#define/#define/' config/console.h
-RUN sed -i '/KEYBOARD_MAP/s/us/de/'                      config/console.h
+RUN sed -i '/DOWNLOAD_PROTO_HTTPS/s/#undef/#define/'     config/general.h; \
+    sed -i '/PING_CMD/s/\/\/#define/#define/'            config/general.h; \
+    sed -i '/CONSOLE_CMD/s/\/\/#define/#define/'         config/general.h; \
+    sed -i '/CONSOLE_FRAMEBUFFER/s/\/\/#define/#define/' config/console.h; \
+    sed -i '/KEYBOARD_MAP/s/us/de/'                      config/console.h
 
 COPY embedded.ipxe .
 
@@ -42,8 +49,9 @@ ARG PORT=69
 ARG DEBUG
 ARG BLOCK_SIZE=1468
 
-# install tftp
-RUN apk add --no-cache tftp-hpa
+# check: https://pkgs.alpinelinux.org/packages?branch=v3.17
+RUN apk add --no-cache \
+            tftp-hpa=5.2-r5
 
 WORKDIR /
 

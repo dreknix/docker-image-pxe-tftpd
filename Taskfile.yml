@@ -9,7 +9,14 @@ dotenv:
 
 tasks:
 
+  lint:
+    desc: Lint Dockerfile with hadolint
+    cmds:
+      - hadolint Dockerfile
+
   build:
+    deps:
+      - lint
     desc: Build Docker image
     cmds:
       - docker build
