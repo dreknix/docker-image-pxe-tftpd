@@ -27,6 +27,13 @@ tasks:
                --file Dockerfile
                .
 
+  publish:
+    desc: Publish Docker image
+    cmds:
+      - docker tag '{{ .IMAGE_NAME }}'
+                   '{{ .DOCKER_HUB_NAMESPACE }}/{{ .IMAGE_NAME }}:latest'
+      - docker push '{{ .DOCKER_HUB_NAMESPACE }}/{{ .IMAGE_NAME }}:latest'
+
   start:
     desc: Start Docker container
     cmds:
