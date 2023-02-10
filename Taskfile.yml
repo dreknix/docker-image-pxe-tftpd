@@ -3,39 +3,45 @@
 
 version: '3'
 
-vars:
-  IMAGE_NAME: "ipxe-tftpd"
-  CONTAINER_NAME: "{{ .IMAGE_NAME }}"
+dotenv:
+  - '.env'
+  - '.env_local'
 
 tasks:
 
   build:
     desc: Build Docker image
     cmds:
-      - docker build -t {{ .IMAGE_NAME }} -f Dockerfile .
+      - docker build
+               --build-arg 'ROOT_DIR={{ .ROOT_DIR }}'
+               --build-arg 'HTTP_PORT={{ .HTTP_PORT }}'
+               --build-arg 'DEBUG={{ .DEBUG }}'
+               --tag '{{ .IMAGE_NAME }}'
+               --file Dockerfile
+               .
 
   start:
     desc: Start Docker container
     cmds:
       - docker run --rm -d
                    --network host
-                   -v ipxe:/ipxe/
-                   --name {{ .CONTAINER_NAME }}
-                   {{ .IMAGE_NAME }}
+                   -v 'pxe-tftpboot:{{ .ROOT_DIR }}/'
+                   --name '{{ .CONTAINER_NAME }}'
+                   '{{ .IMAGE_NAME }}'
 
   stop:
     desc: Stop Docker container
     cmds:
-      - docker stop {{ .CONTAINER_NAME }}
+      - docker stop '{{ .CONTAINER_NAME }}'
 
   exec:
     desc: Execute shell inside container
     cmds:
-      - docker exec -it {{ .CONTAINER_NAME }} sh
+      - docker exec -it '{{ .CONTAINER_NAME }}' /bin/sh
 
   logs:
     desc: Show container logs
     cmds:
-      - docker logs {{ .CONTAINER_NAME }}
+      - docker logs '{{ .CONTAINER_NAME }}'
 
 ...

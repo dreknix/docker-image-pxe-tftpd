@@ -1,15 +1,28 @@
 #!/bin/sh
 
-cp -u /ipxe-base/ipxe.efi           /ipxe/
-cp -u /ipxe-base/ipxe.pxe           /ipxe/
+if [ ! -d "${ROOT_DIR}/" ]
+then
+  echo "root dir '${ROOT_DIR}/' is not existing"
+  exit 1
+fi
+
+cp -u /ipxe.efi "${ROOT_DIR}/"
+cp -u /ipxe.pxe "${ROOT_DIR}/"
 
 busybox syslogd -n -O /dev/stdout &
 
+if [ -n "${DEBUG}" ]
+then
+  VERBOSE_FLAGS="-vvv"
+else
+  VERBOSE_FLAGS="-v"
+fi
+
 /usr/sbin/in.tftpd \
   --foreground  \
-  --address :69 \
+  --address "${LISTEN_ADDR}:${PORT}" \
   --secure \
   --user ftp \
-  --blocksize 1468 \
-  -vvv \
-  /ipxe
+  --blocksize "${BLOCK_SIZE}" \
+  "${VERBOSE_FLAGS}" \
+  "${ROOT_DIR}"
