@@ -3,7 +3,7 @@
 # Get Alpine tag from: https://hub.docker.com/_/alpine
 FROM alpine:3.17.1 AS builder
 
-ARG HTTP_PORT=8080
+ARG HTTP_PORT=8069
 
 RUN apk add --no-cache make gcc musl-dev xz-dev perl patch git
 
