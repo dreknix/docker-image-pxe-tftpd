@@ -43,6 +43,13 @@ RUN \
 # Get Alpine tag from: https://hub.docker.com/_/alpine
 FROM alpine:3.17.1
 
+LABEL org.opencontainers.image.authors='dreknix <dreknix@proton.me>' \
+      org.opencontainers.image.base.name='alpine:3.71.1' \
+      org.opencontainers.image.licenses='MIT' \
+      org.opencontainers.image.source='https://github.com/dreknix/docker-image-pxe-tftpd.git' \
+      org.opencontainers.image.title='Docker image for TFTP server in PXE' \
+      org.opencontainers.image.url='https://github.com/dreknix/docker-image-pxe-tftpd'
+
 ARG ROOT_DIR=/tftpboot
 ARG LISTEN_ADDR
 ARG PORT=69
