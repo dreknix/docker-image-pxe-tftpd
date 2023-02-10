@@ -8,6 +8,13 @@ as network bootstrap program
 (NBP). It is part of the Docker compose
 [PXE service](https://github.com/dreknix/docker-compose-pxe)
 
+The image is also available from
+[Docker Hub](https://hub.docker.com/r/dreknix/pxe-tftpd):
+
+```console
+$ docker pull dreknix/pxe-tftpd
+```
+
 ## Configure iPXE
 
 The iPXE software is configured as follows:
