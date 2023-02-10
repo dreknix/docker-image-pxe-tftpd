@@ -11,7 +11,7 @@ cp -u /ipxe.pxe "${ROOT_DIR}/"
 
 busybox syslogd -n -O /dev/stdout &
 
-if [ -n "${DEBUG}" ]
+if [ "${DEBUG}" = "true" ]
 then
   VERBOSE_FLAGS="-vvv"
 else
