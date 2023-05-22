@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Get Alpine tag from: https://hub.docker.com/_/alpine
-FROM alpine:3.17.1 AS builder
+FROM alpine:3.17.3 AS builder
 
 ARG HTTP_PORT=8069
 
@@ -9,11 +9,11 @@ ARG HTTP_PORT=8069
 RUN apk add --no-cache \
             make=4.3-r1 \
             gcc=12.2.1_git20220924-r4 \
-            musl-dev=1.2.3-r4 \
+            musl-dev=1.2.3-r5 \
             xz-dev=5.2.9-r0 \
-            perl=5.36.0-r0 \
-            patch=2.7.6-r8 \
-            git=2.38.3-r1
+            perl=5.36.0-r1 \
+            patch=2.7.6-r9 \
+            git=2.38.5-r0
 
 WORKDIR /build/
 
