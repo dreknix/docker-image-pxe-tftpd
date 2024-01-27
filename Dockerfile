@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Get Alpine tag from: https://hub.docker.com/_/alpine
-FROM alpine:3.19.0 AS builder
+FROM alpine:3.19.1 AS builder
 
 ARG HTTP_PORT=8069
 
@@ -41,7 +41,7 @@ RUN \
     make bin-x86_64-efi/ipxe.efi    EMBED=embedded.ipxe
 
 # Get Alpine tag from: https://hub.docker.com/_/alpine
-FROM alpine:3.19.0
+FROM alpine:3.19.1
 
 ARG ROOT_DIR=/tftpboot
 ARG LISTEN_ADDR
