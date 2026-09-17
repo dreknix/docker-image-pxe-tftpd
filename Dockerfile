@@ -7,7 +7,7 @@ ARG HTTP_PORT=8069
 
 # check: https://pkgs.alpinelinux.org/packages?branch=v3.17
 RUN apk add --no-cache \
-            make=4.3-r1 \
+            make=4.4.1-r4 \
             gcc=12.2.1_git20220924-r4 \
             musl-dev=1.2.3-r5 \
             xz-dev=5.2.9-r0 \
