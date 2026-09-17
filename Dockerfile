@@ -58,7 +58,7 @@ LABEL org.opencontainers.image.authors='dreknix <dreknix@proton.me>' \
 
 # check: https://pkgs.alpinelinux.org/packages?branch=v3.17
 RUN apk add --no-cache \
-            tftp-hpa=5.2-r5
+            tftp-hpa=5.2-r7
 
 WORKDIR /
 
