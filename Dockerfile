@@ -13,7 +13,7 @@ RUN apk add --no-cache \
             xz-dev=5.2.9-r0 \
             perl=5.36.0-r2 \
             patch=2.7.6-r9 \
-            git=2.38.5-r0
+            git=2.54.0-r0
 
 WORKDIR /build/
 
