@@ -10,7 +10,7 @@ RUN apk add --no-cache \
             make=4.3-r1 \
             gcc=12.2.1_git20220924-r4 \
             musl-dev=1.2.3-r5 \
-            xz-dev=5.2.9-r0 \
+            xz-dev=5.8.4-r0 \
             perl=5.36.0-r2 \
             patch=2.7.6-r9 \
             git=2.38.5-r0
